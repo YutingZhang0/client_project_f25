@@ -22,11 +22,14 @@
             <li><a href="career-exploration.html" >Career Exploration</a></li>
         </ul>
     </nav>
-    
-  <h1>Welcome to the UMSI Career Development Resource Hub</h1>
+    <div class="heading-row">
+      <h1>Welcome to the UMSI Career Development Resource Hub</h1>
+      <button id="colorBtn" class="btn-change-bg">Change Background</button>
+    </div>
+  
 </header>
 
-<main id="main">
+<main id="main" class="wrapper">
 <section>
   <h2>Your Central Hub for Career Success at UMSI</h2>
   <p>
@@ -87,6 +90,28 @@
 </main>
 <footer>
   <p>University of Michigan School of Information | <a href="https://umich.instructure.com/courses/137916">UMSI Career Development Office</a></p>
+  <p>© <span id="year"></span> YourSite. All rights reserved.</p>
 </footer>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+<script>
+  const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+  let lastHue = null;
+  function pickLightBlueCyan(){
+    let hue;
+    do { hue = rand(180, 220); } while (lastHue !== null && Math.abs(hue - lastHue) < 6); // 避免连续太接近
+    lastHue = hue;
+
+    const sat = rand(55, 75); 
+    const lit = rand(82, 92);
+    return `hsl(${hue} ${sat}% ${lit}%)`;
+  }
+
+  document.getElementById('colorBtn').addEventListener('click', () => {
+    document.body.style.backgroundColor = pickLightBlueCyan();
+  });
+</script>
 </body>
 </html>

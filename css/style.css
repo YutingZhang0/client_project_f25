@@ -85,6 +85,7 @@ header{
   background: linear-gradient(180deg, var(--um-blue) 0%, #08315c 100%);
   color: #fff;
 }
+
 .skip-link{
   position: absolute;
   inset: 0 auto auto 0;
@@ -535,8 +536,130 @@ a.card:hover, section > div > ul a:hover{
 }
 
 /* =========================
-   Reduced Motion (a11y)
+   404 Error Page
    ========================= */
-@media (prefers-reduced-motion: reduce){
-  *{ animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+.error-split{
+  display: grid;
+  gap: var(--gap-lg);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 900px){
+  .feature.error-split{
+    display: grid !important;
+    grid-template-columns: minmax(0,1.2fr) minmax(0,0.8fr) !important;
+    align-items: center;
+    column-gap: var(--gap-lg);
+    
+  }
+  .feature.error-split .error-copy{ grid-column: 1; }
+  .feature.error-split .error-art { 
+    grid-column: 2;
+    justify-self: end;
+  }
+}
+.page-404 main{
+  display: block;              /* 关闭 grid 布局 */
+  grid-template-columns: none; /* 保险起见也清掉列定义 */
+  gap: 0;
+}
+/* 图片自适应、限制最大宽度 */
+.error-art img{
+  max-inline-size: min(420px, 100%);
+  block-size: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* CTA 网格（可与之前一致） */
+.error-cta{
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+/* 强调“Back to Home” */
+.cta-primary{
+  background: var(--um-maize);
+  border-color: var(--um-maize);
+  color: var(--um-blue);
+  font-weight: 800;
+}
+
+
+/* 默认手机端：保持单列（无需额外声明，维持你原有逻辑） */
+
+/* 平板/桌面：两列布局 */
+@media (min-width: 900px){
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  }
+  main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-lg);
+    /* 保留你原来的内边距 main{ padding-block: 1rem 2rem; } */
+  }
+  /* main 的直接子元素（section/article/div）在网格里做卡片 */
+  main > section,
+  main > article,
+  main > div{
+    margin: 0; /* 交给 gap 管控间距 */
+  }
+  main > .full-bleed{
+    grid-column: 1 / -1;
+  }
+  main > section:has(> iframe){
+    grid-column: 1 / -1;
+  }
+
+  .wrapper{
+    padding-inline: clamp(0.5rem, 4vw, 1rem); /* 原 1rem→1.25rem，1.25rem→2rem */
+  }
+}
+
+/* 让标题和按钮同一行，按钮顶到最右 */
+.heading-row{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 1rem;      /* 上下留点空间，可按需改 */
+}
+
+/* 让按钮“挤到”最右边 */
+.heading-row .btn-change-bg{
+  margin-left: auto;
+}
+
+/* 按钮样式：简洁、美观、可点击 */
+.btn-change-bg{
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #ccd2d8;
+  border-radius: 999px;        /* 胶囊形 */
+  background: #f7f9fb;
+  font: inherit;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+
+.btn-change-bg:hover{
+  background: #eef3f8;
+  transform: translateY(-1px);
+}
+
+.btn-change-bg:active{
+  transform: translateY(0);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.04) inset;
+}
+
+/* 小屏下换行也能好看 */
+@media (max-width: 520px){
+  .heading-row{ flex-wrap: wrap; }
+  .heading-row .btn-change-bg{ margin-left: 0; }
 }
