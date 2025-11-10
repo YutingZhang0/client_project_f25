@@ -1,0 +1,658 @@
+/* =========================
+   Design Tokens (UM Brand)
+   ========================= */
+:root{
+  --um-blue: #00274C;
+  --um-maize: #FFCB05;
+  --um-blue-90: #0a3d6b;
+  --ink: #0f172a; 
+  --muted: #475569; 
+  --bg: #ffffff;
+  --bg-alt: #f6f8fb;
+  --radius: 16px;
+  --gap: 1rem;
+  --gap-lg: 1.25rem;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.08);
+  --step--1: clamp(.95rem, .9rem + .2vw, 1rem);
+  --step-0: clamp(1rem, .95rem + .5vw, 1.125rem);
+  --step-1: clamp(1.125rem, 1rem + .9vw, 1.375rem);
+  --step-2: clamp(1.35rem, 1.05rem + 1.6vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.2rem + 2.5vw, 2.25rem);
+  --step-4: clamp(2rem, 1.4rem + 3.5vw, 2.75rem);
+}
+
+html { scroll-behavior: smooth; }
+body{
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, 'Helvetica Neue', Arial, sans-serif;
+  font-size: var(--step-0);
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  min-height: 100svh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+/* =========================
+   Global Helpers
+   ========================= */
+.wrapper{
+  padding-inline: clamp(1rem, 4vw, 1.25rem);
+  max-width: 72rem;
+  margin-inline: auto;
+}
+.flow > * + *{ margin-top: .75rem; }
+:focus-visible{
+  outline: 3px solid var(--um-maize);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+a{ color: var(--um-blue); text-decoration-thickness: .08em; text-underline-offset: .15em; }
+a:hover{ text-decoration: underline; }
+h1{ font-size: var(--step-4); line-height: 1.15; letter-spacing: .2px; }
+h2{ font-size: var(--step-2); line-height: 1.2; margin-bottom: .25rem; }
+h3{ font-size: var(--step-1); line-height: 1.25; }
+
+/* =========================
+   Skip Link
+   ========================= */
+.skip-link{
+  position: absolute;
+  inset: 0 auto auto 0;
+  transform: translateY(-150%);
+  background: var(--um-maize);
+  color: var(--um-blue);
+  padding: .5rem .75rem;
+  border-radius: 0 0 8px 0;
+  z-index: 1000;
+  transition: transform .2s ease;
+}
+.skip-link:focus{ transform: translateY(0); }
+
+/* =========================
+   Header & Navigation
+   ========================= */
+header{
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "nav nav"
+    "logo title";
+  gap: var(--gap);
+  align-items: center;
+  padding-block: .75rem;
+  background: linear-gradient(180deg, var(--um-blue) 0%, #08315c 100%);
+  color: #fff;
+}
+
+.skip-link{
+  position: absolute;
+  inset: 0 auto auto 0;
+  transform: translateY(-150%);
+}
+header > nav[aria-label="Primary"]{ 
+  grid-area: nav; 
+  border: 1px solid rgba(255,255,255,.25);
+  border-radius: 12px;
+}
+header > img{ grid-area: logo; width: clamp(64px, 18vw, 92px); height: auto; border-radius: 8px; }
+header > h1{ grid-area: title; margin: 0; }
+nav[aria-label="Primary"] ul{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9.5rem, 1fr));
+  gap: .5rem;
+  align-items: stretch;   
+}
+nav[aria-label="Primary"] a{
+  display: grid;
+  place-items: center;
+  min-block-size: 44px;
+  block-size: 100%;  
+  padding: .75rem .75rem;
+  min-block-size: 44px;
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  font-weight: 600;
+}
+header h1{ grid-column: auto; }
+nav[aria-label="Primary"] a[aria-current="page"]{
+  background: var(--um-maize);
+  color: var(--um-blue);
+  border-color: var(--um-maize);
+  box-shadow: 0 1px 2px rgba(0,0,0,.12), 0 10px 22px rgba(0,0,0,.18);
+}
+/* =========================
+   Main Layout
+   ========================= */
+main{ padding-block: 1rem 2rem; }
+main > section,
+main > div,
+main > article{
+  padding: 1rem;
+  margin: .75rem auto;
+  border-radius: var(--radius);
+  background: var(--bg-alt);
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+/* =========================
+   Heading Decoration
+   ========================= */
+main h2{
+  position: relative;
+  padding-bottom: .35rem;
+}
+main h2::after{
+  content: "";
+  display: block;
+  height: .35rem;
+  width: clamp(3rem, 90%, 20rem);
+  margin-top: .35rem;
+  border-radius: 2px;
+  background: var(--um-maize);
+}
+
+/* =========================
+   Typography & Lists
+   ========================= */
+section p, article p{ color: var(--ink); }
+section ul, section ol{ padding-inline-start: 1.25rem; }
+section ul{ list-style: disc; }
+section ol{ list-style: decimal; }
+section li + li{ margin-top: .375rem; }
+
+/* =========================
+   Figures
+   ========================= */
+figure{
+  border-radius: 12px;
+  overflow: clip;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+figure img{ width: 100%; height: auto; }
+
+/* =========================
+   Feature Card
+   ========================= */
+.feature{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--gap-lg);
+  align-items: start;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+.feature .content{
+  display: grid;
+  gap: .75rem;
+}
+.wrap-img{
+  all: unset;
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 0 0 .75rem 0;
+}
+.feature .content > h2{
+  font-size: var(--step-2);
+  line-height: 1.2;
+  font-weight: 800;
+  color: var(--um-blue);
+}
+.feature .content > ul{
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+.feature .content > ul li + li{ margin-top: 0; }
+.feature .content{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-flow: row;
+  gap: .75rem;
+}
+.feature .content .wrap-img,
+.feature .content > h2,
+.feature .content > ul{
+  grid-column: 1 / -1;
+}
+.feature .content .wrap-img{
+  float: none;
+  position: static;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  margin: 0 0 .75rem 0;
+}
+
+/* =========================
+   Home Page
+   ========================= */
+section:has(iframe){
+  grid-template-columns: 1fr;
+}
+iframe{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+}
+section > div:has(> img, > ul):not(.content){
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  align-items: start;
+}
+section > div > ul{
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+section > div > ul a{
+  display: block;
+  padding: .875rem 1rem;
+  min-block-size: 44px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  font-weight: 600;
+  color: var(--um-blue);
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+/* =========================
+   Aside: Most Popular Resources
+   ========================= */
+aside[aria-label="Most Popular Resources"]{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: var(--shadow);
+}
+aside[aria-label="Most Popular Resources"] ul{
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); 
+}
+aside[aria-label="Most Popular Resources"] a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: .75rem 1rem;
+  border-radius: 10px;
+  background: var(--bg-alt);
+  border: 1px dashed #d1d5db;
+  width: 90%;
+  height: 80%;
+  min-height: 50px;
+}
+
+/* =========================
+   Resume Page
+   ========================= */
+section[aria-label="Structure and Templates"] ul{
+  list-style: none;
+}
+section[aria-label="Common Mistakes"] ul{
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+  margin-block: clamp(1rem, 5vw, 2rem);
+}
+section[aria-label="Common Mistakes"] li{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: .875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  min-block-size: 56px;
+  height: 100%;
+}
+section[aria-label="Common Mistakes"] li:hover{
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 14px 30px rgba(0,0,0,.12);
+}
+section[aria-label="Common Mistakes"] li:focus-within{
+  outline: 3px solid var(--um-maize);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+section[aria-label="Career Resources"]{
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+}
+section[aria-label="Career Resources"] > article{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  padding: 1rem;
+  grid-template-columns: 1fr; 
+  display: grid;
+  gap: .5rem;
+}
+section[aria-label="Career Resources"] > article > *{
+  grid-column: 1 / -1;
+}
+section[aria-label="Quick Checklist"] ul{
+  display: grid;
+  column-gap: clamp(1rem, 5.5vw, 2rem);
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+ul.list-row{
+  display: grid;
+  grid-template-columns: 1fr !important;
+  gap: .5rem;
+}
+section[aria-label="Career Resources"] > .content{
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  align-items: stretch;
+}
+section[aria-label="Career Resources"] > .content > h2,
+section[aria-label="Career Resources"] > .content > p{
+  grid-column: 1 / -1;
+}
+section[aria-label="Career Resources"] > .content > article{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: .5rem;
+  height: 100%;
+}
+section[aria-label="Career Resources"] > .content > article > *{
+  grid-column: 1 / -1;
+}
+section[aria-label="Career Resources"] > .content > article ul a{
+  display: block;
+  padding: .625rem .99rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow);
+  text-align: center;
+  font-weight: 600;
+}
+section[aria-label="Career Resources"] > .content > article ul a:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 14px 30px rgba(0,0,0,.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+/* =========================
+   Networking & Exploration
+   ========================= */
+section[aria-label="Networking Resources"] ul,
+section[aria-label="Alumni and Events"] ul,
+section[aria-label="Use Job Descriptions"] ul,
+section[aria-label="Outreach Messages"] ul,
+section[aria-label="Build a Strategic Plan"] ul:not(.list-row),
+section[aria-label="Planning Your Search"] p + p a,
+section[aria-label="AI Prompt Guide"] p + p a{
+  display: inline-block;
+  padding: .625rem .99rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow);
+}
+section[aria-label="Build a Strategic Plan"] ul:not(.list-row),
+section[aria-label="Outreach Messages"] ul,
+section[aria-label="Alumni and Events"] ul,
+section[aria-label="Networking Resources"] ul{
+  list-style: none;
+  margin-block: 1rem;
+}
+section[aria-label="Build a Strategic Plan"] h3{
+  margin-block: clamp(1rem, 3vw, 1.5rem) clamp(0.9rem, 3vw, 1.25rem);
+}
+ol{ padding-inline-start: 1.25rem; }
+ol li{ margin-block: .25rem; }
+
+/* =========================
+   Career Exploration: Cards & Links
+   ========================= */
+section[aria-label="AI Prompt Guide"] p + p a,
+section[aria-label="Planning Your Search"] p + p a,
+section[aria-label="Part-Time Opportunities"] p + p a{
+  display: inline-block;
+  padding: .625rem .99rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow);
+}
+section[aria-label="Alumni Insights"] ul,
+section[aria-label="Negotiating Job Offers"] ul{
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+section[aria-label="Alumni Insights"] ul a,
+section[aria-label="Negotiating Job Offers"] ul a{
+  display: block;
+  padding: .625rem .99rem;
+  border-radius: 10px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  box-shadow: var(--shadow);
+}
+section[aria-label="Alumni Insights"] h3,
+section[aria-label="Negotiating Job Offers"] h3{
+  margin-block: clamp(.75rem, 3vw, 1.25rem) clamp(.5rem, 2.5vw, 1rem);
+}
+section[aria-label="AI Prompt Guide"],
+section[aria-label="Alumni Insights"],
+section[aria-label="Planning Your Search"],
+section[aria-label="Part-Time Opportunities"],
+section[aria-label="Negotiating Job Offers"]{
+  row-gap: clamp(1rem, 4vw, 1.75rem);
+}
+section[aria-label="Alumni Insights"] li,
+section[aria-label="Negotiating Job Offers"] li{
+  height: 100%;
+}
+section[aria-label="Alumni Insights"] a:hover,
+section[aria-label="Negotiating Job Offers"] a:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 14px 30px rgba(0,0,0,.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+section[aria-label="Negotiating Job Offers"] ul{
+  list-style: none;
+  padding-inline-start: 0;
+  margin: 0;
+  display: grid;
+  gap: .5rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+section[aria-label="Negotiating Job Offers"] li{
+  display: block !important;
+  padding: .875rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  background: #fff;
+  height: auto;
+}
+section[aria-label="Negotiating Job Offers"] li:hover{
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 14px 30px rgba(0,0,0,.12);
+}
+section[aria-label="Negotiating Job Offers"] li:focus-within{
+  outline: 3px solid var(--um-maize);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* =========================
+   Footer
+   ========================= */
+footer{
+  background: var(--um-blue);
+  color: #fff;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+footer a{ color: var(--um-maize); text-decoration: underline; }
+footer p{ text-align: center; font-size: var(--step--1);  }
+
+/* =========================
+   Utilities
+   ========================= */
+.card{
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+.badge{
+  display: inline-block;
+  padding: .25rem .5rem;
+  border-radius: 999px;
+  background: var(--um-maize);
+  color: var(--um-blue);
+  font-weight: 700;
+}
+a.card:hover, section > div > ul a:hover{
+  transform: translateY(-1px);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 14px 30px rgba(0,0,0,.12);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+/* =========================
+   404 Error Page
+   ========================= */
+.error-split{
+  display: grid;
+  gap: var(--gap-lg);
+  grid-template-columns: 1fr;
+  align-items: center;
+}
+
+@media (min-width: 900px){
+  .feature.error-split{
+    display: grid !important;
+    grid-template-columns: minmax(0,1.2fr) minmax(0,0.8fr) !important;
+    align-items: center;
+    column-gap: var(--gap-lg);
+    
+  }
+  .feature.error-split .error-copy{ grid-column: 1; }
+  .feature.error-split .error-art { 
+    grid-column: 2;
+    justify-self: end;
+  }
+}
+.page-404 main{
+  display: block; 
+  grid-template-columns: none; 
+  gap: 0;
+}
+.error-art img{
+  max-inline-size: min(420px, 100%);
+  block-size: auto;
+  object-fit: contain;
+  display: block;
+}
+.error-cta{
+  display: grid;
+  gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+.cta-primary{
+  background: var(--um-maize);
+  border-color: var(--um-maize);
+  color: var(--um-blue);
+  font-weight: 800;
+}
+
+@media (min-width: 900px){
+  header{
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  }
+  main{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gap-lg);
+  }
+  main > section,
+  main > article,
+  main > div{
+    margin: 0;
+  }
+  main > .full-bleed{
+    grid-column: 1 / -1;
+  }
+  main > section:has(> iframe){
+    grid-column: 1 / -1;
+  }
+
+  .wrapper{
+    padding-inline: clamp(0.5rem, 4vw, 1rem); 
+  }
+}
+
+.heading-row{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-block: 1rem;
+}
+.heading-row .btn-change-bg{
+  margin-left: auto;
+}
+
+.btn-change-bg{
+  padding: 0.55rem 0.9rem;
+  border: 1px solid #ccd2d8;
+  border-radius: 999px;
+  background: #f7f9fb;
+  font: inherit;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .2s ease, background .2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+
+.btn-change-bg:hover{
+  background: #eef3f8;
+  transform: translateY(-1px);
+}
+
+.btn-change-bg:active{
+  transform: translateY(0);
+  box-shadow: 0 0 0 2px rgba(0,0,0,.04) inset;
+}
+@media (max-width: 520px){
+  .heading-row{ flex-wrap: wrap; }
+  .heading-row .btn-change-bg{ margin-left: 0; }
+}
